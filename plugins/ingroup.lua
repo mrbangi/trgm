@@ -17,6 +17,7 @@ local function check_member_autorealm(cb_extra, success, result)
           lock_photo = 'no',
           lock_member = 'no',
           flood = 'yes'
+          lock link = 'no',
         }
       }
       save_data(_config.moderation.data, data)
@@ -46,7 +47,8 @@ local function check_member_realm_add(cb_extra, success, result)
           lock_name = 'yes',
           lock_photo = 'no',
           lock_member = 'no',
-          flood = 'yes'
+          flood = 'yes',
+          lock link = 'no',
         }
       }
       save_data(_config.moderation.data, data)
@@ -79,6 +81,7 @@ function check_member_group(cb_extra, success, result)
           lock_photo = 'no',
           lock_member = 'no',
           flood = 'yes',
+          lock link = 'no',
         }
       }
       save_data(_config.moderation.data, data)
@@ -111,6 +114,7 @@ local function check_member_modadd(cb_extra, success, result)
           lock_photo = 'no',
           lock_member = 'no',
           flood = 'yes',
+          lock link = 'no',
         }
       }
       save_data(_config.moderation.data, data)
@@ -383,6 +387,10 @@ local function set_public_membermod(msg, data, target)
 end
 
 local function unset_public_membermod(msg, data, target)
+  if not is_momod(msg) then
+    return "For moderators only!"
+  end
+  local function lock_link(msg, data, target)
   if not is_momod(msg) then
     return "For moderators only!"
   end
